@@ -14,7 +14,7 @@
     "build": "npm --prefix frontend run build"
   },
   "dependencies": {
-    "bcrypt": "^5.1.0",
+    "bcryptjs": "^2.4.3",
     "cloudinary": "^1.41.3",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
@@ -26,5 +26,8 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.22"
+  },
+  "allowScripts": {
+    "core-js@3.50.0": true
   }
 }
