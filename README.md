@@ -27,14 +27,23 @@ Neighborly is a civic-tech MVP that turns individual neighborhood reports into c
 
 ## Architecture
 
-```
-frontend/          static SPA (hash router)
-backend/           Express REST API
-  controllers/
-  models/          User, Report
-  routes/
-  utils/           addressNormalizer, hotspotQuery
-  scripts/seed.js
+```text
+neighborhood-issue-logger/
+├── backend/
+│   ├── controllers/
+│   ├── models/
+│   ├── routes/
+│   ├── server.js
+│   ├── package.json
+│   └── .env.example
+├── frontend/
+│   ├── src/
+│   ├── public/
+│   ├── package.json
+│   └── vite.config.js
+├── .gitignore
+├── README.md
+└── package.json
 ```
 
 Reports are grouped by `normalizedAddress`. Hotspot detection is derived:

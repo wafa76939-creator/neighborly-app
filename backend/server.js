@@ -4,7 +4,9 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const path = require('path');
 
-dotenv.config();
+const fs = require('fs');
+
+dotenv.config({ path: path.join(__dirname, '.env') });
 
 const app = express();
 app.use(cors());
@@ -22,24 +24,38 @@ app.use('/api/addresses', addressRoutes);
 app.use('/api/hotspots', hotspotRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 
-// ✅ FRONTEND SERVE KARNE KE LIYE (Ye zaroori hai!)
+// Frontend static serving (serves Vite dist if built, otherwise frontend directory)
+const distPath = path.join(__dirname, '..', 'frontend', 'dist');
 const frontendPath = path.join(__dirname, '..', 'frontend');
-app.use(express.static(frontendPath));
+const staticPath = fs.existsSync(distPath) ? distPath : frontendPath;
 
-// ✅ Har non-API route par index.html bhejo
+app.use(express.static(staticPath));
+
+// Send index.html for non-API routes
 app.get(/^(?!\/api).*/, (req, res) => {
-  res.sendFile(path.join(frontendPath, 'index.html'));
+  const indexPath = fs.existsSync(path.join(staticPath, 'index.html'))
+    ? path.join(staticPath, 'index.html')
+    : path.join(frontendPath, 'index.html');
+  res.sendFile(indexPath);
 });
 
 const PORT = process.env.PORT || 5002;
 
-mongoose.connect(process.env.MONGODB_URI)
-  .then(() => {
-    app.listen(PORT, () => {
-      console.log(`Server running on http://localhost:${PORT}`);
+if (!process.env.VERCEL) {
+  mongoose.connect(process.env.MONGODB_URI)
+    .then(() => {
+      app.listen(PORT, () => {
+        console.log(`Server running on http://localhost:${PORT}`);
+      });
+    })
+    .catch((err) => {
+      console.error('MongoDB connection error:', err.message);
+      process.exit(1);
     });
-  })
-  .catch((err) => {
+} else {
+  mongoose.connect(process.env.MONGODB_URI).catch((err) => {
     console.error('MongoDB connection error:', err.message);
-    process.exit(1);
   });
+}
+
+module.exports = app;
