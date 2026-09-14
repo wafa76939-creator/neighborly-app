@@ -1,0 +1,30 @@
+body {
+  background:
+    radial-gradient(900px 420px at 100% -10%, #efe4cf 0%, transparent 55%),
+    var(--bg);
+}
+
+h1, h2, h3 { letter-spacing: -0.03em; }
+h1 { font-size: 36px; font-weight: 800; line-height: 1.1; }
+h2 { font-size: 24px; font-weight: 700; }
+h3 { font-size: 18px; font-weight: 700; }
+p, .muted { color: var(--ink-soft); line-height: 1.55; }
+.muted { font-size: 14px; }
+
+.page-enter { animation: fadeUp 280ms ease; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+
+#app { min-height: 100vh; }
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+.leaflet-container {
+  z-index: 1;
+}

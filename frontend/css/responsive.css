@@ -1,0 +1,20 @@
+@media (max-width: 1024px) {
+  .hero, .auth-split, .two-col, .stats-row, .dash-stats, .three { grid-template-columns: 1fr; }
+  .cats, .cat-grid { grid-template-columns: repeat(2, 1fr); }
+  .sidebar { display: none; }
+  .app-shell { margin-left: 0; padding-bottom: var(--bottom-nav); }
+  .bottom-nav { display: flex; }
+  .toast-root { bottom: 92px; }
+}
+
+@media (max-width: 720px) {
+  .hero { padding: 16px; }
+  .hero h1 { font-size: 40px; }
+  .app-main, .auth-form, .auth-visual { padding: 16px; }
+  .section { padding: 48px 16px; }
+  .cats, .cat-grid, .dash-stats, .stats-row { grid-template-columns: 1fr; }
+  .hero-map .map, .map-lg { height: 320px; }
+  .landing-nav { padding: 14px 16px; }
+  .cta-band { margin: 16px; }
+  .cta-band h2 { font-size: 32px; }
+}
